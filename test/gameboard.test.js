@@ -39,7 +39,7 @@ describe('Place ship at', () => {
     const gameboard = Gameboard()
 
     gameboard.placeShipAt(Ship(3), 0, 3)
-    expect(gameboard.slots[(0, 3)]).not.toBe(null)
-    expect(gameboard.slots[(0, 2)]).toBe(null)
+    expect(gameboard.slots[0][3]).not.toBe(null)
+    expect(gameboard.slots[0][2]).toBe(null)
   })
 })
