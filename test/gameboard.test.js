@@ -16,8 +16,8 @@ describe('Blank board size and format', () => {
 
     for (const index of row) {
       amount++
-      test('New boards have blank slots', () => {
-        expect(index).toBe(null)
+      test('New boards have empty slots', () => {
+        expect(index.type).toBe('empty')
       })
     }
   }
@@ -32,7 +32,7 @@ describe('Place ship at', () => {
     const gameboard = Gameboard()
 
     gameboard.placeShipAt(Ship(2), 0, 2)
-    expect(gameboard.slots[0][2]).not.toBe(null)
+    expect(gameboard.slots[0][2].type).toBe('ship')
   })
 })
 

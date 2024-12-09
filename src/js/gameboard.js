@@ -4,7 +4,7 @@ const createSlots = () => {
   for (let i = 0; i < 10; i++) {
     slots[i] = []
     for (let j = 0; j < 10; j++) {
-      slots[i][j] = null
+      slots[i][j] = { type: 'empty' }
     }
   }
   return slots
