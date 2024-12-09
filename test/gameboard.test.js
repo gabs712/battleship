@@ -36,4 +36,17 @@ describe('Place ship at', () => {
   })
 })
 
-describe('Receive attack', () => {})
+describe('Receive attack method', () => {
+  test('Damages a ship', () => {
+    const gameboard = Gameboard()
+    const ship = Ship(3)
+    gameboard.placeShipAt(ship, 2, 3)
+
+    gameboard.receiveAttack(2, 3)
+    gameboard.receiveAttack(2, 3)
+    expect(ship.isSunk()).toBe(false)
+
+    gameboard.receiveAttack(2, 3)
+    expect(ship.isSunk()).toBe(true)
+  })
+})

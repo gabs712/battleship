@@ -17,8 +17,8 @@ const Gameboard = () => {
     slots[x][y] = ship
   }
 
-  const receiveAttack = (coordinate) => {
-    return
+  const receiveAttack = (x, y) => {
+    const index = slots[x][y]
   }
 
   const isAllSunk = () => {
