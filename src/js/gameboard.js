@@ -13,10 +13,6 @@ const createSlots = () => {
 const Gameboard = () => {
   const slots = createSlots()
 
-  const createBoard = () => {
-    return
-  }
-
   const placeShipAt = (coordinate) => {
     return
   }
