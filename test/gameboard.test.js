@@ -1,6 +1,6 @@
 import Gameboard from '../src/js/gameboard'
 
-describe('Correct blank board size and format', () => {
+describe('Blank board size and format', () => {
   let amount = 0
   const gameboard = Gameboard()
 
