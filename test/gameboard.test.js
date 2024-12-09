@@ -6,10 +6,10 @@ describe('Blank board size and format', () => {
   const gameboard = Gameboard()
 
   test('10 rows in a board', () => {
-    expect(gameboard.slots.length).toBe(10)
+    expect(gameboard.slot.length).toBe(10)
   })
 
-  for (const row of gameboard.slots) {
+  for (const row of gameboard.slot) {
     test('10 slots in a row', () => {
       expect(row.length).toBe(10)
     })
@@ -31,8 +31,9 @@ describe('Place ship at', () => {
   test('Ship placed at correct coordinate', () => {
     const gameboard = Gameboard()
 
+    expect(gameboard.slot[0][2].type).toBe('empty')
     gameboard.placeShipAt(Ship(2), 0, 2)
-    expect(gameboard.slots[0][2].type).toBe('ship')
+    expect(gameboard.slot[0][2].type).toBe('ship')
   })
 })
 
