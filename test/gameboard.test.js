@@ -1,4 +1,5 @@
 import Gameboard from '../src/js/gameboard'
+import Ship from '../src/js/ship'
 
 describe('Blank board size and format', () => {
   let amount = 0
@@ -23,5 +24,22 @@ describe('Blank board size and format', () => {
 
   test('100 slots in a board', () => {
     expect(amount).toBe(100)
+  })
+})
+
+describe('Place ship at', () => {
+  test('Ship placed at correct coordinate', () => {
+    const gameboard = Gameboard()
+
+    gameboard.placeShipAt(Ship(2), 0, 2)
+    expect(gameboard.slots[0][2]).not.toBe(null)
+  })
+
+  test('Ship placed without interfering with other indexes', () => {
+    const gameboard = Gameboard()
+
+    gameboard.placeShipAt(Ship(3), 0, 3)
+    expect(gameboard.slots[(0, 3)]).not.toBe(null)
+    expect(gameboard.slots[(0, 2)]).toBe(null)
   })
 })
