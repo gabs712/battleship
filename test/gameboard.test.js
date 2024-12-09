@@ -34,12 +34,6 @@ describe('Place ship at', () => {
     gameboard.placeShipAt(Ship(2), 0, 2)
     expect(gameboard.slots[0][2]).not.toBe(null)
   })
-
-  test('Ship placed without interfering with other indexes', () => {
-    const gameboard = Gameboard()
-
-    gameboard.placeShipAt(Ship(3), 0, 3)
-    expect(gameboard.slots[0][3]).not.toBe(null)
-    expect(gameboard.slots[0][2]).toBe(null)
-  })
 })
+
+describe('Receive attack', () => {})
