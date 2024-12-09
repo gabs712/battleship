@@ -13,8 +13,8 @@ const createSlots = () => {
 const Gameboard = () => {
   const slots = createSlots()
 
-  const placeShipAt = (coordinate) => {
-    return
+  const placeShipAt = (ship, x, y) => {
+    slots[x][y] = ship
   }
 
   const receiveAttack = (coordinate) => {
