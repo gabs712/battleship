@@ -11,27 +11,43 @@ const createSlots = () => {
 }
 
 const Gameboard = () => {
-  const slot = createSlots()
+  const slots = createSlots()
 
   const placeShipAt = (ship, x, y) => {
-    slot[x][y] = ship
+    slots[x][y] = ship
   }
 
   const receiveAttack = (x, y) => {
-    const item = slot[x][y]
+    const item = slots[x][y]
 
     if (item.type === 'ship') {
       item.hit()
     } else if (item.type === 'empty') {
-      slot[x][y].type = 'missed'
+      slots[x][y].type = 'missed'
     }
   }
 
   const isAllSunk = () => {
-    return
+    let hasShips = false
+    for (const row of slots) {
+      for (const index of row) {
+        if (index.type === 'ship') {
+          hasShips = true
+          if (!index.isSunk()) {
+            return false
+          }
+        }
+      }
+    }
+
+    if (!hasShips) {
+      return false
+    }
+
+    return true
   }
 
-  return { placeShipAt, receiveAttack, isAllSunk, slot }
+  return { placeShipAt, receiveAttack, isAllSunk, slots }
 }
 
 export default Gameboard
