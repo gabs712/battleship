@@ -2,7 +2,7 @@ import Gameboard from '../src/js/gameboard'
 
 describe('Correct blank board size and format', () => {
   let amount = 0
-  let gameboard = Gameboard()
+  const gameboard = Gameboard()
 
   test('10 rows in a board', () => {
     expect(gameboard.slots.length).toBe(10)
