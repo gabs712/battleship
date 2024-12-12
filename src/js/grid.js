@@ -8,6 +8,10 @@ const Grid = (gridElement, player) => {
     `
     el.setAttribute('row', row)
     el.setAttribute('column', column)
+
+    el.addEventListener('click', () => {
+      player.gameboard.receiveAttack(row, column)
+    })
   }
 
   const handleShipCel = (el) => {
