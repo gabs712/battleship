@@ -42,7 +42,8 @@ const Grid = (gridElement, player) => {
     return el
   }
 
-  const renderSlot = () => {
+  const renderSlots = () => {
+    gridElement.innerHtml = ''
     for (const [i, row] of player.gameboard.slots.entries()) {
       for (const [j, item] of row.entries()) {
         const element = getItemElement(item, i, j)
@@ -52,7 +53,7 @@ const Grid = (gridElement, player) => {
   }
 
   const setup = () => {
-    renderSlot()
+    renderSlots()
   }
 
   return { setup }
