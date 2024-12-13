@@ -1,4 +1,52 @@
 // Ships of size: 5, 4, 3, 3, 2
+const GridShip = (el, player) => {
+  const slots = player.gameboard.slots
+  const row = el.getAttribute('row')
+  const column = el.getAttribute('column')
+  const ship = slots[row][column]
+
+  const sunkCel = () => {
+    const cloneEl = el.cloneNode() // Removes event listeners by cloning
+    cloneEl.classList.remove(
+      'bg-gray-100',
+      'active:bg-gray-300',
+      'cursor-pointer',
+      'hover:bg-gray-200',
+    )
+    cloneEl.classList.add('bg-red-300')
+
+    el.parentNode.replaceChild(cloneEl, el)
+  }
+
+  const outlineSunken = () => {
+    for (const [i, row] of slots.entries()) {
+      for (const [j, slot] of row.entries()) {
+        if (slot === ship) {
+          const sunkEl = document.querySelector(`[row="${i}"][column="${j}"]`)
+          sunkEl.classList.replace('outline-slate-500', 'outline-red-500')
+          sunkEl.classList.add('z-10')
+        }
+      }
+    }
+  }
+
+  const handleShipCel = () => {
+    el.addEventListener('click', () => {
+      sunkCel(el)
+
+      if (ship.isSunk()) {
+        outlineSunken()
+      }
+
+      // if (player.gameboard.isAllSunk()) {
+      // TODO: Implement end game function
+      // endGame()
+      // alert('end')
+      // }
+    })
+  }
+  return { handleShipCel }
+}
 
 const Grid = (gridElement, player) => {
   const handleDefaultCel = (el, row, column) => {
@@ -14,10 +62,6 @@ const Grid = (gridElement, player) => {
     })
   }
 
-  const handleShipCel = (el) => {
-    return
-  }
-
   const handleEmptyCel = (el) => {
     return
   }
@@ -26,20 +70,20 @@ const Grid = (gridElement, player) => {
     return
   }
 
-  const getItemElement = (item, row, column) => {
+  const getSlotElement = (slot, row, column) => {
     const el = document.createElement('div')
 
     handleDefaultCel(el, row, column)
 
-    if (item.type === 'ship') {
-      handleShipCel(el)
+    if (slot.type === 'ship') {
+      GridShip(el, player).handleShipCel()
     }
 
-    if (item.type === 'empty') {
+    if (slot.type === 'empty') {
       handleEmptyCel(el)
     }
 
-    if (item.type === 'missed') {
+    if (slot.type === 'missed') {
       handleMissedCel(el)
     }
 
@@ -49,8 +93,8 @@ const Grid = (gridElement, player) => {
   const renderSlots = () => {
     gridElement.innerHtml = ''
     for (const [i, row] of player.gameboard.slots.entries()) {
-      for (const [j, item] of row.entries()) {
-        const element = getItemElement(item, i, j)
+      for (const [j, slot] of row.entries()) {
+        const element = getSlotElement(slot, i, j)
         gridElement.append(element)
       }
     }
