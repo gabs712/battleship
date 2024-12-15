@@ -1,21 +1,23 @@
 // Ships of size: 5, 4, 3, 3, 2
-const GridShip = (el, player) => {
+const ShipCel = (element, player) => {
   const slots = player.gameboard.slots
-  const row = el.getAttribute('row')
-  const column = el.getAttribute('column')
+  const row = element.getAttribute('row')
+  const column = element.getAttribute('column')
   const ship = slots[row][column]
 
   const sunkCel = () => {
-    const cloneEl = el.cloneNode() // Removes event listeners by cloning
-    cloneEl.classList.remove(
-      'bg-gray-100',
-      'active:bg-gray-300',
-      'cursor-pointer',
-      'hover:bg-gray-200',
-    )
-    cloneEl.classList.add('bg-red-300')
+    const clonedEl = element.cloneNode() // Removes possilble event listeners by cloning
+    clonedEl.classList.replace('bg-gray-100', 'bg-red-300')
 
-    el.parentNode.replaceChild(cloneEl, el)
+    if (player.isComputer) {
+      clonedEl.classList.remove(
+        'active:bg-gray-300',
+        'cursor-pointer',
+        'hover:bg-gray-200',
+      )
+    }
+
+    element.parentNode.replaceChild(clonedEl, element)
   }
 
   const outlineSunken = () => {
@@ -31,35 +33,44 @@ const GridShip = (el, player) => {
   }
 
   const handleShipCel = () => {
-    el.addEventListener('click', () => {
-      sunkCel(el)
+    sunkCel()
 
-      if (ship.isSunk()) {
-        outlineSunken()
-      }
+    if (ship.isSunk()) {
+      outlineSunken()
+    }
 
-      // if (player.gameboard.isAllSunk()) {
-      // TODO: Implement end game function
-      // endGame()
-      // alert('end')
-      // }
-    })
+    // if (player.gameboard.isAllSunk()) {
+    // TODO: Implement end game function
+    // endGame()
+    // alert('end')
+    // }
   }
+
   return { handleShipCel }
 }
 
 const Grid = (gridElement, player) => {
-  const handleDefaultCel = (el, row, column) => {
+  const createEmptyCel = (row, column) => {
+    const el = document.createElement('div')
     el.className = `
-      cursor-pointer hover:bg-gray-200 outline-slate-500 outline-2 outline bg-gray-100
-      active:bg-gray-300 
+       outline-slate-500 outline-2 outline bg-gray-100
     `
     el.setAttribute('row', row)
     el.setAttribute('column', column)
 
-    el.addEventListener('click', () => {
-      player.gameboard.receiveAttack(row, column)
-    })
+    if (player.isComputer) {
+      el.classList.add(
+        'active:bg-gray-300',
+        'cursor-pointer',
+        'hover:bg-gray-200',
+      )
+
+      el.addEventListener('click', () => {
+        receiveAttack(row, column)
+      })
+    }
+
+    return el
   }
 
   const handleEmptyCel = (el) => {
@@ -70,13 +81,15 @@ const Grid = (gridElement, player) => {
     return
   }
 
-  const getSlotElement = (slot, row, column) => {
-    const el = document.createElement('div')
+  const receiveAttack = (row, column) => {
+    player.gameboard.receiveAttack(row, column)
 
-    handleDefaultCel(el, row, column)
+    const slot = player.gameboard.slots[row][column]
+    const el = document.querySelector(`[row="${row}"][column="${column}"]`)
+    const shipCel = ShipCel(el, player)
 
     if (slot.type === 'ship') {
-      GridShip(el, player).handleShipCel()
+      shipCel.handleShipCel()
     }
 
     if (slot.type === 'empty') {
@@ -90,21 +103,16 @@ const Grid = (gridElement, player) => {
     return el
   }
 
-  const renderSlots = () => {
-    gridElement.innerHtml = ''
+  const populate = () => {
     for (const [i, row] of player.gameboard.slots.entries()) {
-      for (const [j, slot] of row.entries()) {
-        const element = getSlotElement(slot, i, j)
-        gridElement.append(element)
+      for (const [j] of row.entries()) {
+        const cel = createEmptyCel(i, j)
+        gridElement.append(cel)
       }
     }
   }
 
-  const setup = () => {
-    renderSlots()
-  }
-
-  return { setup }
+  return { populate }
 }
 
 export default Grid
