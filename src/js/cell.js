@@ -65,7 +65,7 @@ const EmptyCell = (player, column, row) => {
 
   function receiveAttack() {
     player.gameboard.receiveAttack(column, row)
-    el.classList.replace('bg-gray-100', 'bg-sky-200')
+    el.classList.replace('bg-gray-100', 'bg-blue-200')
   }
   return { ...cell, receiveAttack }
 }
@@ -89,6 +89,7 @@ const ShipCell = (player, column, row) => {
   }
 
   const outlineSunken = () => {
+    alert(1)
     const slots = player.gameboard.slots
     const shipSlot = player.gameboard.slots[row][column]
 
