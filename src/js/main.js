@@ -9,7 +9,6 @@ const gridElement2 = document.querySelector('[data-grid2]')
 
 const a = Ship(4)
 const b = Ship(2)
-
 const c = Ship(2)
 
 player1.gameboard.placeShipAt(a, 0, 0)
@@ -25,5 +24,7 @@ player2.gameboard.placeShipAt(c, 0, 1)
 const grid1 = Grid(gridElement1, player1)
 const grid2 = Grid(gridElement2, player2)
 
-grid1.populate()
-grid2.populate()
+grid1.restart()
+// grid2.restart()
+
+grid1.start()

@@ -1,5 +1,7 @@
 const Gameboard = () => {
-  const createSlots = () => {
+  const slots = createSlots()
+
+  function createSlots() {
     const slots = []
 
     for (let i = 0; i < 10; i++) {
@@ -10,7 +12,6 @@ const Gameboard = () => {
     }
     return slots
   }
-  const slots = createSlots()
 
   const placeShipAt = (ship, x, y) => {
     slots[x][y] = ship
