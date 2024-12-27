@@ -1,4 +1,6 @@
-const GenericCell = (column, row) => {
+import Computer from './computer'
+
+const GenericCell = (player, column, row) => {
   const el = newElement()
 
   function newElement() {
@@ -37,6 +39,10 @@ const GenericCell = (column, row) => {
       () => {
         cb()
         addInteractiveEffects(false)
+
+        if (!player.gameboard.isAllSunk()) {
+          Computer(player.enemy).attack()
+        }
       },
       { once: true },
     )
@@ -55,7 +61,7 @@ const GenericCell = (column, row) => {
 }
 
 const EmptyCell = (player, column, row) => {
-  const cell = GenericCell(column, row)
+  const cell = GenericCell(player, column, row)
   const el = cell.get()
 
   if (player.isComputer) {
@@ -70,7 +76,7 @@ const EmptyCell = (player, column, row) => {
 }
 
 const ShipCell = (player, column, row) => {
-  const cell = GenericCell(column, row)
+  const cell = GenericCell(player, column, row)
   const el = cell.get()
 
   if (player.isComputer) {
@@ -84,6 +90,10 @@ const ShipCell = (player, column, row) => {
     const shipSlot = player.gameboard.slots[row][column]
     if (shipSlot.isSunk()) {
       outlineSunken()
+    }
+    if (player.gameboard.isAllSunk()) {
+      // TODO: Inplement end game function
+      alert('end')
     }
   }
 

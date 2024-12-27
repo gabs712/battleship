@@ -1,9 +1,9 @@
 import Gameboard from './gameboard'
 
-const Player = (isComputer) => {
+const Player = (isComputer, enemy) => {
   const gameboard = Gameboard()
 
-  return { isComputer, gameboard }
+  return { isComputer, enemy, gameboard }
 }
 
 export default Player

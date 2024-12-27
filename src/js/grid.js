@@ -1,16 +1,13 @@
 import { GenericCell, EmptyCell, ShipCell } from './cell'
 
-// Ships of size: 5, 4, 3, 3, 2
 const Grid = (gridElement, player) => {
-  const cells = []
-
   const setup = () => {
     gridElement.innerHTML = ''
 
     const slots = player.gameboard.slots
     for (const [i, row] of slots.entries()) {
       for (const [j] of row.entries()) {
-        const genericCell = GenericCell(i, j).get()
+        const genericCell = GenericCell(player, i, j).get()
         gridElement.append(genericCell)
       }
     }
