@@ -91,12 +91,15 @@ const ShipCell = (player, column, row) => {
     const slots = player.gameboard.slots
     const ship = player.gameboard.slots[row][column]
 
-    for (const slotRow of slots) {
-      for (const slot of slotRow) {
+    for (const [i, slotRow] of slots.entries()) {
+      for (const [j, slot] of slotRow.entries()) {
         if (slot === ship) {
-          console.log(slot, ship)
-          el.classList.replace('outline-slate-500', 'outline-red-500')
-          el.classList.add('z-10')
+          const sunkenShip = document.querySelector(
+            `[row="${i}"][column="${j}"]`,
+          )
+          sunkenShip.classList.replace('outline-slate-500', 'outline-red-500')
+          sunkenShip.classList.add('z-10')
+          console.log(sunkenShip)
         }
       }
     }
