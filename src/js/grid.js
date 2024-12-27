@@ -4,7 +4,7 @@ import { GenericCell, EmptyCell, ShipCell } from './cell'
 const Grid = (gridElement, player) => {
   const cells = []
 
-  const restart = () => {
+  const setup = () => {
     gridElement.innerHTML = ''
 
     const slots = player.gameboard.slots
@@ -40,7 +40,7 @@ const Grid = (gridElement, player) => {
     }
   }
 
-  return { restart, start }
+  return { setup, start }
 }
 
 export default Grid
