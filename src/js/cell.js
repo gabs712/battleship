@@ -13,7 +13,6 @@ const GenericCell = (column, row) => {
   }
 
   const addInteractivity = (cb) => {
-    console.log(1)
     addInteractiveEffects(true)
     addAttackEvent(cb)
   }
@@ -64,7 +63,7 @@ const EmptyCell = (player, column, row) => {
   }
 
   function receiveAttack() {
-    player.gameboard.receiveAttack(column, row)
+    player.gameboard.receiveAttack(row, column)
     el.classList.replace('bg-gray-100', 'bg-blue-200')
   }
   return { ...cell, receiveAttack }
@@ -79,7 +78,7 @@ const ShipCell = (player, column, row) => {
   }
 
   function receiveAttack() {
-    player.gameboard.receiveAttack(column, row)
+    player.gameboard.receiveAttack(row, column)
     el.classList.replace('bg-gray-100', 'bg-red-300')
 
     const shipSlot = player.gameboard.slots[row][column]
@@ -89,13 +88,13 @@ const ShipCell = (player, column, row) => {
   }
 
   const outlineSunken = () => {
-    alert(1)
     const slots = player.gameboard.slots
-    const shipSlot = player.gameboard.slots[row][column]
+    const ship = player.gameboard.slots[row][column]
 
     for (const slotRow of slots) {
       for (const slot of slotRow) {
-        if (slot === shipSlot) {
+        if (slot === ship) {
+          console.log(slot, ship)
           el.classList.replace('outline-slate-500', 'outline-red-500')
           el.classList.add('z-10')
         }
