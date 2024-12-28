@@ -41,7 +41,7 @@ const GenericCell = (player, column, row) => {
         addInteractiveEffects(false)
 
         if (!player.gameboard.isAllSunk()) {
-          Computer().attack()
+          Computer(player.enemy).attack()
         }
       },
       { once: true },
@@ -124,7 +124,6 @@ const ShipCell = (player, column, row) => {
           )
           sunkenShip.classList.replace('outline-slate-500', 'outline-red-500')
           sunkenShip.classList.add('z-10')
-          console.log(sunkenShip)
         }
       }
     }
