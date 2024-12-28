@@ -32,6 +32,7 @@ const Grid = (gridElement, player) => {
     for (const [i, row] of slots.entries()) {
       for (const [j] of row.entries()) {
         const cell = getCell(i, j)
+        cell.get().obj = cell
         gridElement.append(cell.get())
       }
     }
