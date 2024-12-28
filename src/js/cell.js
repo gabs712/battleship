@@ -41,7 +41,7 @@ const GenericCell = (player, column, row) => {
         addInteractiveEffects(false)
 
         if (!player.gameboard.isAllSunk()) {
-          Computer(player.enemy).attack()
+          Computer().attack()
         }
       },
       { once: true },
@@ -89,7 +89,7 @@ const ShipCell = (player, column, row) => {
 
     const shipSlot = player.gameboard.slots[row][column]
     if (shipSlot.isSunk()) {
-      outlineSunken()
+      outlineSunken(player.isComputer ? 1 : 2)
     }
     if (player.gameboard.isAllSunk()) {
       // TODO: Inplement end game function
@@ -97,7 +97,7 @@ const ShipCell = (player, column, row) => {
     }
   }
 
-  const outlineSunken = () => {
+  const outlineSunken = (gridN) => {
     const slots = player.gameboard.slots
     const ship = player.gameboard.slots[row][column]
 
@@ -105,7 +105,7 @@ const ShipCell = (player, column, row) => {
       for (const [j, slot] of slotRow.entries()) {
         if (slot === ship) {
           const sunkenShip = document.querySelector(
-            `[row="${i}"][column="${j}"]`,
+            `[data-grid${gridN}] [row="${i}"][column="${j}"]`,
           )
           sunkenShip.classList.replace('outline-slate-500', 'outline-red-500')
           sunkenShip.classList.add('z-10')
