@@ -5,10 +5,8 @@ const Computer = (player) => {
 
   const isValidCombination = (row, column) => {
     const slot = player.gameboard.slots[row][column]
-    console.log(slot)
 
     if (slot.type === 'missed') {
-      console.log(1)
       return false
     }
 
