@@ -6,7 +6,7 @@
     <title>Document</title>
   </head>
   <body class="grid min-h-svh place-content-center bg-slate-700">
-    <main>
+    <main class="relative">
       <div class="flex gap-11">
         <div
           data-grid1
@@ -16,6 +16,15 @@
           data-grid2
           class="grid border-collapse auto-rows-[1.7rem] grid-cols-[repeat(10,1.7rem)] overflow-hidden rounded p-0.5 shadow-lg"
         ></div>
+      </div>
+      <div class="absolute left-1/2 mt-7 flex -translate-x-1/2 justify-center">
+        <button
+          data-start-button
+          class="rounded-md hover:bg-lime-600 active:bg-lime-500 transition-colors border border-slate-600 bg-lime-700 px-2 font-bold text-slate-200"
+          type="button"
+        >
+          Start
+        </button>
       </div>
     </main>
   </body>
