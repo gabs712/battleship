@@ -83,6 +83,22 @@ const ShipCell = (player, column, row) => {
     cell.addInteractivity(receiveAttack)
   }
 
+  const endGame = () => {
+    document.body.innerHTML = ''
+
+    const msg = document.createElement('div')
+    document.body.append(msg)
+    msg.classList.add('text-lg')
+
+    if (player.isComputer) {
+      msg.innerText = 'You win'
+      msg.classList.add('text-green-400')
+    } else {
+      msg.innerText = 'You lose'
+      msg.classList.add('text-red-400')
+    }
+  }
+
   function receiveAttack() {
     player.gameboard.receiveAttack(row, column)
     el.classList.replace('bg-gray-100', 'bg-red-300')
@@ -92,8 +108,7 @@ const ShipCell = (player, column, row) => {
       outlineSunken(player.isComputer ? 1 : 2)
     }
     if (player.gameboard.isAllSunk()) {
-      // TODO: Inplement end game function
-      alert('end')
+      endGame()
     }
   }
 
