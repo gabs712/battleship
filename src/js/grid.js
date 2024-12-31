@@ -17,7 +17,13 @@ const Grid = (gridElement, player) => {
     const slot = player.gameboard.slots[row][column]
 
     if (slot.type === 'ship') {
-      return ShipCell(player, column, row)
+      const shipCell = ShipCell(player, column, row)
+
+      if (!player.isComputer) {
+        shipCell.get().classList.add('bg-violet-200')
+      }
+
+      return shipCell
     }
 
     if (slot.type === 'empty') {

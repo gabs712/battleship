@@ -101,7 +101,11 @@ const ShipCell = (player, column, row) => {
 
   function receiveAttack() {
     player.gameboard.receiveAttack(row, column)
-    el.classList.replace('bg-gray-100', 'bg-red-300')
+
+    el.classList.remove('bg-gray-100')
+    el.classList.remove('bg-violet-200')
+
+    el.classList.add('bg-red-300')
 
     const shipSlot = player.gameboard.slots[row][column]
     if (shipSlot.isSunk()) {
