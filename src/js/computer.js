@@ -3,11 +3,18 @@ const attacked = []
 const Computer = () => {
   const grid = document.querySelector(`[data-grid2]`)
 
-  const isValidCombination = (row, column) => {
+  const wasAttacked = (row, column) => {
     for (const combination of attacked) {
       if (combination[0] === row && combination[1] === column) {
-        return false
+        return true
       }
+    }
+    return false
+  }
+
+  const isValidCombination = (row, column) => {
+    if (wasAttacked(row, column)) {
+      return false
     }
 
     return true
