@@ -1,13 +1,13 @@
 const attacked = []
 
-const Computer = (player) => {
+const Computer = () => {
   const grid = document.querySelector(`[data-grid2]`)
 
   const isValidCombination = (row, column) => {
-    const slot = player.gameboard.slots[row][column]
-
-    if (slot.type === 'missed') {
-      return false
+    for (const combination of attacked) {
+      if (combination[0] === row && combination[1] === column) {
+        return false
+      }
     }
 
     return true
