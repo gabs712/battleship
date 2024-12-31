@@ -112,7 +112,7 @@ const ShipCell = (player, column, row) => {
       outlineSunken(player.isComputer ? 1 : 2)
     }
     if (player.gameboard.isAllSunk()) {
-      endGame()
+      setTimeout(endGame, 800)
     }
   }
 
