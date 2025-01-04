@@ -41,7 +41,7 @@ const GenericCell = (player, column, row) => {
         addInteractiveEffects(false)
 
         if (!player.gameboard.isAllSunk()) {
-          Computer().attack()
+          Computer(player.enemy).attack()
         }
       },
       { once: true },
