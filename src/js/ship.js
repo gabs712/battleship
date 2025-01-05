@@ -1,4 +1,4 @@
-const Ship = (length) => {
+const Ship = (size) => {
   const type = 'ship'
   let hits = 0
 
@@ -7,10 +7,10 @@ const Ship = (length) => {
   }
 
   const isSunk = () => {
-    return hits >= length ? true : false
+    return hits >= size ? true : false
   }
 
-  return { type, hit, isSunk }
+  return { type, hit, isSunk, size }
 }
 
 export default Ship
