@@ -49,10 +49,11 @@ const ShipCoordinates = (ship) => {
   }
 
   const getRandomOrientation = () => {
-    const randomBinaryValue = Math.floor(Math.random * 1)
+    const randomBinaryValue = Math.floor(Math.random() * 2)
+    console.log(randomBinaryValue)
     if (randomBinaryValue === 0) {
       return 'row'
-    } else {
+    } else if (randomBinaryValue === 1) {
       return 'column'
     }
   }
