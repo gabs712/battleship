@@ -8,7 +8,6 @@ const gridElement2 = document.querySelector('[data-grid2]')
 const player1 = Player(true)
 const player2 = Player(false)
 
-
 player1.enemy = player2
 player2.enemy = player1
 
