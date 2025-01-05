@@ -50,7 +50,6 @@ const ShipCoordinates = (ship) => {
 
   const getRandomOrientation = () => {
     const randomBinaryValue = Math.floor(Math.random() * 2)
-    console.log(randomBinaryValue)
     if (randomBinaryValue === 0) {
       return 'row'
     } else if (randomBinaryValue === 1) {
@@ -102,12 +101,14 @@ const RandomizeShips = (player, gridElement) => {
 
 const ShipPaint = (shipData, gridElement) => {
   const paint = () => {
-    for (const { coordinate } of shipData) {
-      const cell = gridElement.querySelector(
-        `[row=${coordinate[0]}][column${coordinate[1]}]`,
-      )
-      // console.log(cell)
-      cell.classList.replace('bg-gray-100', 'bg-violet-200')
+    for (const ship of shipData) {
+      for (const coordinate of ship.coordinate) {
+        console.log(coordinate)
+        const cell = gridElement.querySelector(
+          `[row="${coordinate[0]}"][column="${coordinate[1]}"]`,
+        )
+        cell.classList.replace('bg-gray-100', 'bg-violet-200')
+      }
     }
   }
 
