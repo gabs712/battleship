@@ -67,7 +67,7 @@ const ShipCoordinates = (ship) => {
 }
 
 const RandomizeShips = (player, gridElement) => {
-  let shipData = []
+  const shipData = []
   const ships = [Ship(5), Ship(4), Ship(3), Ship(3), Ship(2)]
 
   // TODO: shipData empty when passed to shipPaint
@@ -75,7 +75,7 @@ const RandomizeShips = (player, gridElement) => {
 
   const clear = () => {
     shipPaint.clear()
-    shipData = []
+    shipData.splice(0, shipData.length)
   }
 
   const generateData = () => {
