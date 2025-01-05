@@ -7,7 +7,7 @@ const Grid = (gridElement, player) => {
     const slots = player.gameboard.slots
     for (const [i, row] of slots.entries()) {
       for (const [j] of row.entries()) {
-        const genericCell = GenericCell(player, i, j).get()
+        const genericCell = GenericCell(player, j, i).get()
         gridElement.append(genericCell)
       }
     }
