@@ -17,13 +17,25 @@ const grid2 = Grid(gridElement2, player2)
 grid1.setup()
 grid2.setup()
 
-const randomShips = RandomizeShips(player2, gridElement2)
-randomShips.preview()
+const randomShips1 = RandomizeShips(player1, gridElement1)
+const randomShips2 = RandomizeShips(player2, gridElement2)
 
+randomShips2.preview()
 const randomizeButtom = document.querySelector('[data-randomize-buttom]')
 randomizeButtom.addEventListener('click', () => {
-  randomShips.preview()
+  randomShips2.preview()
 })
 
-// grid1.start()
-// grid2.start()
+const startButtom = document.querySelector('[data-start-button]')
+startButtom.addEventListener('click', () => {
+  randomShips2.place()
+
+  randomShips1.generateData()
+  randomShips1.place()
+
+  grid1.start()
+  grid2.start()
+
+  randomizeButtom.remove()
+  startButtom.remove()
+})
