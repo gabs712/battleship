@@ -14,12 +14,16 @@ player2.enemy = player1
 const grid1 = Grid(gridElement1, player1)
 const grid2 = Grid(gridElement2, player2)
 
-// player1.gameboard.placeShipAt(ships1.a, 0, 0)
-
 grid1.setup()
 grid2.setup()
 
-RandomizeShips(player1, gridElement1).preview()
+const randomShips = RandomizeShips(player2, gridElement2)
+randomShips.preview()
+
+const randomizeButtom = document.querySelector('[data-randomize-buttom]')
+randomizeButtom.addEventListener('click', () => {
+  randomShips.preview()
+})
 
 // grid1.start()
 // grid2.start()
