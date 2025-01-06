@@ -6,7 +6,7 @@ const RandomShipSlotN = ({ size: shipSize }) => {
   const boundLimit = 9
 
   const shipIsWhithinBounds = () => {
-    if (number + shipSize > boundLimit) return false
+    if (number + (shipSize - 1) > boundLimit) return false
 
     return true
   }
