@@ -1,7 +1,7 @@
 import Ship from './ship'
 
+const shipData = []
 const RandomShipSlotN = ({ size: shipSize }) => {
-  // TODO: Check for ships occupying the same slot
   let number
   const boundLimit = 9
 
@@ -35,16 +35,64 @@ const RandomShipSlotN = ({ size: shipSize }) => {
 const ShipCoordinates = (ship) => {
   const coordinates = []
 
-  const populateCoordinates = (orientation) => {
-    const axisN = RandomShipSlotN(ship).get()
-    const headN = RandomShipSlotN(ship).get()
+  const getAlignedCoordinates = (axisN, headN) => {
+    const alignedCoordinates = []
+    const orientation = getRandomOrientation()
 
     for (let i = 0; i < ship.size; i++) {
       if (orientation === 'row') {
-        coordinates.push([axisN, headN + i])
+        alignedCoordinates.push([axisN, headN + i])
       } else if (orientation === 'column') {
-        coordinates.push([headN + i, axisN])
+        alignedCoordinates.push([headN + i, axisN])
       }
+    }
+    return alignedCoordinates
+  }
+
+  const isSameAsShip = ([currentX, currentY], [shipX, shipY]) => {
+    if (currentX === shipX && currentY === shipY) {
+      return true
+    }
+    return false
+  }
+
+  const isAdjascentToShip = ([currentX, currentY], [shipX, shipY]) => {
+    if (
+      (currentX - 1 === shipX && currentY === shipY) ||
+      (currentX + 1 === shipX && currentY === shipY) ||
+      (currentX === shipX && currentY - 1 === shipY) ||
+      (currentX === shipX && currentY + 1 === shipY)
+    ) {
+      return true
+    }
+    return false
+  }
+
+  const isInvalidPosition = (currentCoordinates) => {
+    for (const ship of shipData) {
+      for (const shipCoordinate of ship.coordinate) {
+        for (const currentCoordinate of currentCoordinates) {
+          if (isSameAsShip(currentCoordinate, shipCoordinate)) {
+            return true
+          }
+          if (isAdjascentToShip(currentCoordinate, shipCoordinate)) {
+            return true
+          }
+        }
+      }
+    }
+    return false
+  }
+
+  const populateCoordinates = () => {
+    const axisN = RandomShipSlotN(ship).get()
+    const headN = RandomShipSlotN(ship).get()
+    const alignedCoordinates = getAlignedCoordinates(axisN, headN)
+
+    if (isInvalidPosition(alignedCoordinates)) {
+      populateCoordinates()
+    } else {
+      coordinates.push(...alignedCoordinates)
     }
   }
 
@@ -58,7 +106,7 @@ const ShipCoordinates = (ship) => {
   }
 
   const get = () => {
-    populateCoordinates(getRandomOrientation())
+    populateCoordinates()
     return coordinates
   }
 
@@ -66,10 +114,8 @@ const ShipCoordinates = (ship) => {
 }
 
 const RandomizeShips = (player, gridElement) => {
-  const shipData = []
   const ships = [Ship(5), Ship(4), Ship(3), Ship(3), Ship(2)]
 
-  // TODO: shipData empty when passed to shipPaint
   const shipPaint = ShipPaint(shipData, gridElement)
 
   const clear = () => {
@@ -103,7 +149,6 @@ const ShipPaint = (shipData, gridElement) => {
   const paint = () => {
     for (const ship of shipData) {
       for (const coordinate of ship.coordinate) {
-        console.log(coordinate)
         const cell = gridElement.querySelector(
           `[row="${coordinate[0]}"][column="${coordinate[1]}"]`,
         )
