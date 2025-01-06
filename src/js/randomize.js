@@ -18,7 +18,7 @@ const RandomShipSlotN = ({ size: shipSize }) => {
   }
 
   const randomizeUntilBound = () => {
-    number = Math.floor(Math.random() * boundLimit + 1)
+    number = Math.floor(Math.random() * (boundLimit + 1))
   }
 
   const get = () => {
