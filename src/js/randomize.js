@@ -1,6 +1,5 @@
 import Ship from './ship'
 
-const shipData = []
 const RandomShipSlotN = ({ size: shipSize }) => {
   let number
   const boundLimit = 9
@@ -32,7 +31,7 @@ const RandomShipSlotN = ({ size: shipSize }) => {
   return { get }
 }
 
-const ShipCoordinates = (ship) => {
+const ShipCoordinates = (ship, shipData) => {
   const coordinates = []
 
   const getAlignedCoordinates = (axisN, headN) => {
@@ -114,6 +113,7 @@ const ShipCoordinates = (ship) => {
 }
 
 const RandomizeShips = (player, gridElement) => {
+  const shipData = []
   const ships = [Ship(5), Ship(4), Ship(3), Ship(3), Ship(2)]
 
   const shipPaint = ShipPaint(shipData, gridElement)
@@ -127,7 +127,7 @@ const RandomizeShips = (player, gridElement) => {
     for (const ship of ships) {
       const data = {
         ship,
-        coordinate: ShipCoordinates(ship).get(),
+        coordinate: ShipCoordinates(ship, shipData).get(),
       }
       shipData.push(data)
     }
@@ -140,9 +140,13 @@ const RandomizeShips = (player, gridElement) => {
   }
 
   const place = () => {
-    return
+    for (const ship of shipData) {
+      for (const coordinate of ship.coordinate) {
+        player.gameboard.placeShipAt(ship.ship, coordinate[0], coordinate[1])
+      }
+    }
   }
-  return { preview, place }
+  return { preview, place, generateData }
 }
 
 const ShipPaint = (shipData, gridElement) => {
