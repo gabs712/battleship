@@ -6,10 +6,8 @@
     <title>Battleship</title>
   </head>
   <body class="grid min-h-svh place-content-center bg-slate-700">
-    <main class="relative">
-      <div
-        class="absolute left-1/2 -top-24 flex -translate-x-1/2 justify-center"
-      >
+    <main class="grid gap-8 py-5 sm:gap-20">
+      <div class="flex justify-center">
         <button
           data-randomize-buttom
           class="rounded-md bg-sky-700 px-2 font-bold text-slate-200 transition-colors hover:bg-sky-600 active:bg-sky-500"
@@ -18,7 +16,7 @@
           Randomize
         </button>
       </div>
-      <div class="flex gap-11">
+      <div class="flex gap-5 sm:gap-11 flex-wrap justify-center">
         <div
           data-grid1
           class="grid border-collapse auto-rows-[1.7rem] grid-cols-[repeat(10,1.7rem)] overflow-hidden rounded p-0.5 shadow-lg"
@@ -28,7 +26,7 @@
           class="grid border-collapse auto-rows-[1.7rem] grid-cols-[repeat(10,1.7rem)] overflow-hidden rounded p-0.5 shadow-lg"
         ></div>
       </div>
-      <div class="absolute left-1/2 mt-7 flex -translate-x-1/2 justify-center">
+      <div class="flex justify-center">
         <button
           data-start-button
           class="rounded-md border border-slate-600 bg-lime-700 px-2 font-bold text-slate-200 transition-colors hover:bg-lime-600 active:bg-lime-500"
